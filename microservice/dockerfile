@@ -1,0 +1,14 @@
+FROM golang:1.18.2-alpine as dev
+
+WORKDIR /work
+
+FROM golang:1.18.2-alpine as build
+
+WORKDIR /microservice
+COPY ./* /microservice/
+RUN go build -o microservice
+
+FROM alpine as runtime
+COPY --from=build /microservice /
+COPY ./videos.json /
+CMD ./microservice

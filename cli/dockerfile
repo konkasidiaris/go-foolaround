@@ -9,7 +9,7 @@ COPY ./* /videos/
 RUN go build -o videos
 
 FROM alpine as runtime
-COPY --from=build /videos /usr/local/bin/videos
+COPY --from=build /videos/videos /usr/local/bin/videos
 COPY ./videos.json /
 COPY run.sh /
 RUN chmod +x run.sh
